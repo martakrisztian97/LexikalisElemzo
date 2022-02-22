@@ -6,8 +6,7 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) {
-        StringBuffer domol = new StringBuffer("12domosi12:=(**domosi**){domosi}>12=domosi");
-        //StringBuffer domol = new StringBuffer("12domosi12(**domosi**)kfff");
+        StringBuffer domol = new StringBuffer("12domosi12:=(**domosi**){domosi}>=domosi");
         List<String> tokens = new ArrayList<>();
         Pattern pattern;
         Matcher m;
@@ -38,6 +37,13 @@ public class Main {
                 }
             }  else if (domol.charAt(0) == '{') {
                 pattern = Pattern.compile("\\{.*\\}");
+                m = pattern.matcher(domol);
+                if (m.find()) {
+                    tokens.add(m.group());
+                    find = true;
+                }
+            } else if (domol.charAt(0) == ':') {
+                pattern = Pattern.compile(":=");
                 m = pattern.matcher(domol);
                 if (m.find()) {
                     tokens.add(m.group());
