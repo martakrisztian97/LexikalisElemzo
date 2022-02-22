@@ -36,6 +36,13 @@ public class Main {
                     tokens.add(m.group());
                     find = true;
                 }
+            }  else if (domol.charAt(0) == '{') {
+                pattern = Pattern.compile("\\{.*\\}");
+                m = pattern.matcher(domol);
+                if (m.find()) {
+                    tokens.add(m.group());
+                    find = true;
+                }
             } else {
                 domol.delete(0, 1);
             }
