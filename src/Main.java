@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         StringBuffer domol = new StringBuffer("12domosi12:=(**domosi**){domosi}>=domosi$");
-        List<String> tokens = new ArrayList<>();
+        List<String> lexemes = new ArrayList<>();  // lexémák listája
         Pattern pattern;
         Matcher m;
         boolean find;
@@ -19,7 +19,7 @@ public class Main {
                 pattern = Pattern.compile("[0-9]+");
                 m = pattern.matcher(domol);
                 if (m.find()) {
-                    tokens.add(m.group());
+                    lexemes.add(m.group());
                     find = true;
                 }
             // <azonosító>
@@ -27,7 +27,7 @@ public class Main {
                 pattern = Pattern.compile("[a-zA-Z]+[0-9]+|[a-zA-Z]+");
                 m = pattern.matcher(domol);
                 if (m.find()) {
-                    tokens.add(m.group());
+                    lexemes.add(m.group());
                     find = true;
                 }
             // <(**) kommentár>
@@ -35,7 +35,7 @@ public class Main {
                 pattern = Pattern.compile("\\(\\*\\*.*\\*\\*\\)");
                 m = pattern.matcher(domol);
                 if (m.find()) {
-                    tokens.add(m.group());
+                    lexemes.add(m.group());
                     find = true;
                 }
             // <{} kommentár>
@@ -43,42 +43,42 @@ public class Main {
                 pattern = Pattern.compile("\\{.*\\}");
                 m = pattern.matcher(domol);
                 if (m.find()) {
-                    tokens.add(m.group());
+                    lexemes.add(m.group());
                     find = true;
                 }
             // <értékadás>
             } else if (domol.charAt(0) == ':' && domol.charAt(1) == '=') {
-                tokens.add(":=");
+                lexemes.add(":=");
                 find = true;
             // <nagyobbegyenlő>
             } else if (domol.charAt(0) == '>' && domol.charAt(1) == '=') {
-                tokens.add(">=");
+                lexemes.add(">=");
                 find = true;
             // <kisebbegyenlő>
             } else if (domol.charAt(0) == '<' && domol.charAt(1) == '=') {
-                tokens.add("<=");
+                lexemes.add("<=");
                 find = true;
             // <nemegyenlő>
             } else if (domol.charAt(0) == '<' && domol.charAt(1) == '>') {
-                tokens.add("<>");
+                lexemes.add("<>");
                 find = true;
             // <eof>
             } else if (domol.charAt(0) == '$') {
-                tokens.add("$");
+                lexemes.add("$");
                 find = true;
             } else {
                 domol.delete(0, 1);
             }
 
             if (find) {
-                domol.delete(0, tokens.get(tokens.size()-1).length());
+                domol.delete(0, lexemes.get(lexemes.size()-1).length());
             }
 
             System.out.println(domol+" ");
         }
 
-        System.out.println("TOKENS:");
-        for (String token : tokens) {
+        System.out.println("lexemes:");
+        for (String token : lexemes) {
             System.out.println(token);
         }
     }
