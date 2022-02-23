@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) {
-        StringBuffer domol = new StringBuffer("12domosi12:=(**domosi**){domosi}>=domosi");
+        StringBuffer domol = new StringBuffer("12domosi12:=(**domosi**){domosi}>=domosikisegynemegy");
         List<String> tokens = new ArrayList<>();
         Pattern pattern;
         Matcher m;
@@ -42,13 +42,18 @@ public class Main {
                     tokens.add(m.group());
                     find = true;
                 }
-            } else if (domol.charAt(0) == ':') {
-                pattern = Pattern.compile(":=");
-                m = pattern.matcher(domol);
-                if (m.find()) {
-                    tokens.add(m.group());
-                    find = true;
-                }
+            } else if (domol.charAt(0) == ':' && domol.charAt(1) == '=') {
+                tokens.add(":=");
+                find = true;
+            } else if (domol.charAt(0) == '>' && domol.charAt(1) == '=') {
+                tokens.add(">=");
+                find = true;
+            } else if (domol.charAt(0) == '<' && domol.charAt(1) == '=') {
+                tokens.add("<=");
+                find = true;
+            } else if (domol.charAt(0) == '<' && domol.charAt(1) == '>') {
+                tokens.add("<=");
+                find = true;
             } else {
                 domol.delete(0, 1);
             }
