@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) {
-        StringBuffer domol = new StringBuffer("12domosi12:=(**domosi**){domosi}>=domosi<=kisegy<>nemegy");
+        StringBuffer domol = new StringBuffer("12domosi12:=(**domosi**){domosi}>=domosi$");
         List<String> tokens = new ArrayList<>();
         Pattern pattern;
         Matcher m;
@@ -61,6 +61,10 @@ public class Main {
             // <nemegyenlő>
             } else if (domol.charAt(0) == '<' && domol.charAt(1) == '>') {
                 tokens.add("<>");
+                find = true;
+            // <eof>
+            } else if (domol.charAt(0) == '$') {
+                tokens.add("$");
                 find = true;
             } else {
                 domol.delete(0, 1);
