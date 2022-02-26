@@ -25,60 +25,61 @@ public class Main {
 
     public static void main(String[] args) {
         StringBuffer domol = new StringBuffer("12domosi12:=(**domosi**){domosi}>=domosi$");
-        List<Token> tokens = new ArrayList<>();  // lexémák/tokenek listája
+        StringBuffer domol2 = new StringBuffer("12domosi12:=(**domosi**){domosi}>=domosi$");
+        List<Token> tokens = new ArrayList<>();  // lexemak/tokenek listaja
         Pattern pattern;
         Matcher m;
         boolean find;
 
         while (domol.length() != 0) {
             find = false;
-            // <előjelnélküli egész>
+            // <szam>
             if (Character.isDigit(domol.charAt(0))) {
                 pattern = Pattern.compile("[0-9]+");
                 m = pattern.matcher(domol);
                 if (m.find()) {
-                    tokens.add(new Token(m.group(), "<előjelnélküli egész>"));
+                    tokens.add(new Token(m.group(), "<szam>"));
                     find = true;
                 }
-            // <azonosító>
+            // <azonosito>
             } else if (Character.isLetter(domol.charAt(0))) {
                 pattern = Pattern.compile("[a-zA-Z]+[0-9]+|[a-zA-Z]+");
                 m = pattern.matcher(domol);
                 if (m.find()) {
-                    tokens.add(new Token(m.group(), "<azonosító>"));
+                    tokens.add(new Token(m.group(), "<azonosito>"));
                     find = true;
                 }
-            // <(**) kommentár>
+            // <(**) kommentar>
             } else if (domol.charAt(0) == '(') {
                 pattern = Pattern.compile("\\(\\*\\*.*\\*\\*\\)");
                 m = pattern.matcher(domol);
                 if (m.find()) {
-                    tokens.add(new Token(m.group(), "<(**) kommentár>"));
+                    tokens.add(new Token(m.group(), "<(**) kommentar>"));
                     find = true;
                 }
-            // <{} kommentár>
+            // <{} kommentar>
             }  else if (domol.charAt(0) == '{') {
                 pattern = Pattern.compile("\\{.*\\}");
                 m = pattern.matcher(domol);
                 if (m.find()) {
-                    tokens.add(new Token(m.group(), "<{} kommentár>"));
+                    tokens.add(new Token(m.group(), "<{} kommentar>"));
                     find = true;
                 }
-            // <értékadás>
+            // <ertekadas>
             } else if (domol.charAt(0) == ':' && domol.charAt(1) == '=') {
-                tokens.add(new Token(":=", "<értékadás>"));
+                tokens.add(new Token(":=", "<ertekadas>"));
                 find = true;
-            // <nagyobbegyenlő>
+            // <nagyobbegyenlo>
             } else if (domol.charAt(0) == '>' && domol.charAt(1) == '=') {
-                tokens.add(new Token(">=", "<nagyobbegyenlő>"));
+                tokens.add(new Token(">=", "<nagyobbegyenlo>"));
                 find = true;
-            // <kisebbegyenlő>
+            // <kisebbegyenlo>
             } else if (domol.charAt(0) == '<' && domol.charAt(1) == '=') {
-                tokens.add(new Token("<=", "<kisebbegyenlő>"));
+                tokens.add(new Token("<=", "<kisebbegyenlo>"));
                 find = true;
-            // <nemegyenlő>
+            // <nemegyenlo>
             } else if (domol.charAt(0) == '<' && domol.charAt(1) == '>') {
-                tokens.add(new Token("<>", "<nemegyenlő>"));
+                tokens.add(new Token("<>", "<nemegyenlo>"));
                 find = true;
             // <eof>
             } else if (domol.charAt(0) == '$') {
@@ -91,14 +92,16 @@ public class Main {
             if (find) {
                 domol.delete(0, tokens.get(tokens.size()-1).getToken().length());
             }
-
-            System.out.println(domol+" ");
         }
 
-        System.out.println("tokens:");
+        System.out.println(domol2);
         for (Token token : tokens) {
-
-            System.out.println(token.getToken()+"\t"+token.getType());
+            System.out.print(token.getToken());
+            for (int i = 0; i < 20-token.getToken().length(); i++) {
+                System.out.print(" ");
+            }
+            System.out.print(token.getType());
+            System.out.println();
         }
     }
 }
