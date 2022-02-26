@@ -94,10 +94,10 @@ public class Main {
             }
         }
 
-        System.out.println(domol2);
+        System.out.println(domol2+"\n");
         for (Token token : tokens) {
-            System.out.print(token.getToken());
-            for (int i = 0; i < 20-token.getToken().length(); i++) {
+            System.out.print(token.getToken()+" ");
+            for (int i = 0; i < 15-token.getToken().length(); i++) {
                 System.out.print(" ");
             }
             System.out.print(token.getType());
