@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 
 public class Lexikalis {
 
+    /**
+     * Tokenek tarolasara szolgalo osztaly.
+     */
     public static class Token {
         private String token;
         private String type;
