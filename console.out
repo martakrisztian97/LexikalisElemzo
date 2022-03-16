@@ -1,0 +1,10 @@
+12domosi12:=(**domosi**){domosi}>=domosi$
+
+12              <szam>
+domosi12        <azonosito>
+:=              <ertekadas>
+(**domosi**)    <(**) kommentar>
+{domosi}        <{} kommentar>
+>=              <nagyobbegyenlo>
+domosi          <azonosito>
+$               <eof>
